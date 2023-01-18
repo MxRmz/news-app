@@ -35,6 +35,7 @@
     &_goback {
         padding: 2.188rem 0 0 5.812rem;
         font-weight: 700;
+        a {
         &::before {
             content: '';
             position: absolute;
@@ -43,6 +44,7 @@
             width: 1rem;
             height: 1rem;
             background: url('../images/img/Arrow-Left.svg') no-repeat;
+        }
+        }
     }
-}
 }
