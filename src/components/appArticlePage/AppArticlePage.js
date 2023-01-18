@@ -1,102 +1,73 @@
-/* import React, {Component} from 'react';
-import AppText from '../AppGetText/AppGetText';
+import React, {useEffect, useState} from 'react';
+import { useParams, Link} from 'react-router-dom';
 import NewsService from '../../services/NewsService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/spinner';
 import './AppArticlePage.scss';
 
 
+const AppArticlePage = () => {
+    const {articleId} = useParams();
+    const [article, setArticle] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
+    const news_service = new NewsService();
 
-class AppArticlePage extends Component {
 
+    useEffect(() => {
+        updateNews()
+    })
 
-    article = new AppText()
-    state = {
-        char: {},
-        loading: true,
-        error: false
+    const updateNews = () => {
+        news_service.getArticle(articleId)
+            .then(onArticleLoaded)
+            .catch(onError)
     }
 
-    componentDidMount() {
-        
-
-    
-        console.log(this.state.data)
-        this.updateChar();
-        
+    const onError = () => {
+        setError(true);
+    }
+    const onArticleLoaded = (article) => {
+        setArticle(article);
+        setLoading(false);
     }
 
-    componentWillUnmount() {
-        clearInterval(this.timerId);
-    }
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading ? <Spinner/> : null;
+    const content = !(loading || error || !article) ? <View article={article}/> : null;
 
-    onCharLoaded = (char) => {
-        this.setState({
-            char,
-            loading: false
-        })
-    }
+    return (
+        <>
+            {errorMessage}
+            {spinner}
+            {content}
+        </>
 
-    onError = () => {
-        this.setState({
-            loading: false,
-            error: true
-        })
-    }
+    )
 
-    updateChar = () => {
-        const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
-        this.marvelService
-            .getCharacter(id)
-            .then(this.onCharLoaded)
-            .catch(this.onError);
-            }
-    
-
-    render() {
-        const {char, loading, error} = this.state
-        const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
-        const content = !(loading || error) ? <View char={char}/> : null;
-
-        return (
-            <div className="randomchar">
-                {errorMessage}
-                {spinner}
-                {content}
-                <div className="randomchar__static">
-                    <p className="randomchar__title">
-                        Random character for today!<br/>
-                        Do you want to get to know him better?
-                    </p>
-                    <p className="randomchar__title">
-                        Or choose another one
-                    </p>
-                    <button onClick={this.updateChar} className="button button__main">
-                        <div className="inner">try it</div>
-                    </button>
-                    <img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
-                </div>
-            </div>
-        )
-    }
 }
 
-const View = ({char}) => {
-    const {name, description, thumbnail, homepage, wiki} = char;
-    
-    return (
-        <div>
-            <header>
-                <div>
-                    <img src={news.thumbnail} alt={news.title}/>
-                </div>
-            </header>
-            <main>
 
-            </main>
+const View = ({article}) => {
+    const {id, date, title, name, description, thumbnail} = article
+    const background = {
+        backgroundImage: 'url(' + thumbnail + ')',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover'
+    }
+
+    return (
+        <div className='article'>
+                <div className='article_photo' style={background}></div>
+                <div className='article_wrap'>
+                <div className='article_canvas'>
+                        <div className='article_header'>{title}</div>
+                        <div className='article_body'>{description}</div>
+                </div>
+                <div className="article_goback"><Link to={`/`}>Back to homepage</Link></div>
+                </div>
         </div>
     )
 }
 
-export default AppArticlePage; */
+export default AppArticlePage;

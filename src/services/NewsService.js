@@ -15,6 +15,11 @@ class NewsService {
         return res.map(this._transformArticle);
     }
 
+    getArticle = async (id) => {
+        const res = await this.getResource(`${this._apiBase}/${id}`)
+        return this._transformArticle(res);
+    }
+
     _transformArticle = (article) => {
             let date = new Date(article.publishedAt),
             transformed_date = this.transformDate(date)

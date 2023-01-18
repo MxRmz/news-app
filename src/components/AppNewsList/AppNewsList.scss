@@ -19,15 +19,10 @@
         position: relative;
         min-height: 33.1255rem;
         width: 100%;
-        cursor: pointer;
         img {
             width: 25rem;
             height: 13.5625rem;
             object-fit: cover;
-        }
-        &_selected {
-            box-shadow: 0 5px 20px red;
-            transform: translateY(-8px);
         }
     }
     &_data {
@@ -51,25 +46,45 @@
             width: 100%;
             height: 100%;
             background: url('../images/img/date-icon.svg') no-repeat;
-            //background-position: left;
           }
     }
     &_name {
         padding-top: 1.5rem;
         min-height: 58px;
-        font-size: 1.5rem;
-        line-height: 1.813rem;
-        color: #363636;
-   
+        span, mark{
+            font-size: 1.5rem;
+            line-height: 1.813rem;
+            color: #363636;
+        }
     }
     &_description {
         height: 6rem;
         padding-top: 1.563rem;
-        line-height: 150%;
-        color: #363636;
-
+        span, mark{
+            line-height: 150%;
+            color: #363636;
+        }
     }
     .highlight {
         background: rgba(255, 246, 25, 0.63);
+    }
+
+    &_button {
+        padding-top: 1.563rem;
+        position: relative;
+        width: 100%;
+        a {
+            font-weight: 700;
+            color: #363636;
+            &::after {
+                content: '';
+                position: absolute;
+                margin-top: 0.313rem;
+                margin-left: 0.375rem;
+                width: 1rem;
+                height: 1rem;
+                background: url('../images/img/Arrow-Right.svg') no-repeat;
+            }
+        }
     }
 }

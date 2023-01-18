@@ -1,0 +1,48 @@
+.article {
+    max-width: 90rem;
+    min-height: 78.438rem;
+    margin: 0 auto;
+    &_wrap {
+        position: absolute;
+        top: 9.375rem;
+        padding: 0 4.688rem;
+        width: 100%;
+        height: 50rem;
+        
+    }
+    &_photo {
+        width: 100%;
+        height: 15.313rem;
+    }
+    &_canvas {
+        min-height: 62.5rem;
+        max-width: 80.625rem;
+        background: #FFFFFF;
+        border: 1px solid #EAEAEA;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.05);
+        border-radius: 5px;
+    }
+    &_header {
+        text-align: center;
+        font-size: 1.5rem;
+        padding-top: 2.188rem;
+    }
+    &_body {
+        text-align: center;
+        font-size: 1.125rem;
+        padding: 3.125rem 4.688rem 0 4.688rem; 
+    }
+    &_goback {
+        padding: 2.188rem 0 0 5.812rem;
+        font-weight: 700;
+        &::before {
+            content: '';
+            position: absolute;
+            margin-top: 0.3rem;
+            margin-left: -1.3rem;
+            width: 1rem;
+            height: 1rem;
+            background: url('../images/img/Arrow-Left.svg') no-repeat;
+    }
+}
+}
